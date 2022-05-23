@@ -1,0 +1,93 @@
+
+QUESTION -1
+1)
+create table DEPT(
+DEPTNO INT(2),
+DNAME VARCHAR(15),
+LOC VARCHAR(10)
+);
+INSERT INTO DEPT VALUES(10,'ACCOUNTING','NEWYORK'),
+(20,'RESEARCH','DALLAS'),
+(30,'SALES','CHICAGO'),
+(40,'OPERATIONS','BOSTON');
+SELECT * FROM DEPT;
+
+2)
+CREATE TABLE EMP(
+EMPNO INT(4),
+ENAME VARCHAR(10),
+JOB VARCHAR(9),
+HIREDATE DATE,
+SAL FLOAT(7,2),
+COMM FLOAT(7,2),
+DEPTNO INT(2)
+);
+INSERT INTO EMP VALUES(7839,'KING','MANAGER','1991-11-17',5000,NULL,10),
+(7698,'BLAKE','CLERK','1981-05-01',2850,NULL,30),
+(7782,'CLARK','MANAGER','1981-06-09',2450,NULL,10),
+(7566,'JONES','CLERK','1981-04-02',2975,NULL,20),
+(7654 ,'MARTIN ','SALESMAN ','1981-09-28',1250 ,1400,30),
+(7499 ,'ALLEN ','SALESMAN ','1981-02-20',1600,300,300);
+SELECT * FROM EMP;
+
+
+
+3)SELECT ENAME FROM EMP WHERE SAL BETWEEN 2500 AND 5000;
+4)SELECT ENAME FROM EMP ORDER BY ENAME DESC;
+5)SELECT JOB,LOWER(JOB) FROM EMP;
+6)SELECT ENAME,LENGTH(ENAME)FROM EMP;
+7)SELECT DEPT.DEPTNO,COUNT(EMP.DEPTNO) FROM DEPT,EMP WHERE EMP.DEPTNO=DEPT.DEPTNO GROUP BY DEPT.DEPTNO;
+8)SELECT DNAME,ENAME FROM DEPT,EMP
+WHERE EMP.DEPTNO=DEPT.DEPT.DEPTNO;
+9)SELECT ENAME,INSTR(ENAME,'AR')FROM EMP;
+10)SELECT SAL,SAL*0.2 AS "HRA" FROM EMP;
+
+
+
+
+
+
+QUESTION 2 
+
+CREATE TABLE TEMP(OUTPUT VARCHAR(100));
+delimiter //
+create procedure proc1(string1 varchar(20),string2 varchar(20))
+
+begin
+if string1=substr(string2,2) then
+insert into temp values('string1 exist in string2');
+else
+insert into temp values('string1 not exist in string 2');
+end if;
+end ; //
+delimiter ;
+CALL PROC1('DAC','CDAC');
+SELECT * FROM TEMP;
+
+
+QUESTION -3 -triangle
+
+
+answer
+
+delimiter //
+create function function1(s1 int,s2 int,s3 int)
+returns boolean deterministic
+begin
+if s1+s2>s3 and s2+s3>s1 then
+return true;
+else return false;
+end if;
+end; //
+delimiter ;
+delimiter //
+create procedure trg()
+begin
+declare result boolean;
+set result =function1(1,2,3);
+insert into triangle values(null,null,null,result);
+end ; //
+delimiter ;
+call trg();
+select * from triangle;
+

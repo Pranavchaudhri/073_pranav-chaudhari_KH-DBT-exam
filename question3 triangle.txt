@@ -1,0 +1,25 @@
+QUESTION -3 -triangle
+
+
+answer
+
+delimiter //
+create function function1(s1 int,s2 int,s3 int)
+returns boolean deterministic
+begin
+if s1+s2>s3 and s2+s3>s1 then
+return true;
+else return false;
+end if;
+end; //
+delimiter ;
+delimiter //
+create procedure trg()
+begin
+declare result boolean;
+set result =function1(1,2,3);
+insert into triangle values(null,null,null,result);
+end ; //
+delimiter ;
+call trg();
+select * from triangle;

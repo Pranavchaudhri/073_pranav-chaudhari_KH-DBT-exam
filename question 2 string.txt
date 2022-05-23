@@ -1,0 +1,13 @@
+
+question 2-string
+
+delimiter //
+create procedure proc1(string1 varchar(20),string2 varchar(20));
+begin
+if string1=substr(string2,2) then
+insert into tempp values('string1 exist in string2');
+else
+insert into tempp values('string1 not exist in string 2');
+end if;
+end ; //
+delimiter ;
